@@ -57,17 +57,22 @@ const validator = async (
       ? `<div style="background:#0c0c0e;height:100%;text-align: center;"><img src=http://localhost:3000/images/${img}></div>`
       : '<h1 style="color:red;">Please provide Correct Parameters</h1>';
   } else {
-    // 3. filename ,width and Height are provided
-    const img = `${filename}_${width}_${height}.jpg`;
-
-    // the Image is Already Created
-    if (images.includes(img)) {
-      res.locals.output = `<div style="background:#0c0c0e;height:100%;text-align: center;padding-top: 100px;"><img src=http://localhost:3000/images/${img}></div>`;
-    } else {
-      // A new Height and Width
-      // Create a new Image
-      await createImg(String(filename), Number(width), Number(height));
-      res.locals.output = `<div style="background:#0c0c0e;height:100%;text-align: center;padding-top: 100px;"><img src=http://localhost:3000/images/${img}></div>`;
+    try {
+      
+      // 3. filename ,width and Height are provided
+      const img = `${filename}_${width}_${height}.jpg`;
+  
+      // the Image is Already Created
+      if (images.includes(img)) {
+        res.locals.output = `<div style="background:#0c0c0e;height:100%;text-align: center;padding-top: 100px;"><img src=http://localhost:3000/images/${img}></div>`;
+      } else {
+        // A new Height and Width
+        // Create a new Image
+        await createImg(String(filename), Number(width), Number(height));
+        res.locals.output = `<div style="background:#0c0c0e;height:100%;text-align: center;padding-top: 100px;"><img src=http://localhost:3000/images/${img}></div>`;
+      }
+    } catch (error) {
+      res.locals.output = `<div style="text-align:center;"><h1 style="color:red;">Please Provide Correct Queries</h1><h2 style="color:blue;"> ex: "/api/images/?filename=fjord&width=300&height=300"</h2></div>`;
     }
   }
   next();
