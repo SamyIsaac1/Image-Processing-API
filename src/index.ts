@@ -10,6 +10,7 @@ const port = 3000;
 // Function to serve all static Images
 app.use('/images', express.static('assets'));
 
+// Route to api
 app.use('/api', apiRoute);
 
 app.get('/', (req, res) => {
