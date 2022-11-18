@@ -5,7 +5,7 @@ const apiRoute = express.Router();
 
 apiRoute.use('/images', imgRoute);
 
-apiRoute.get('/', (req, res) => {
+apiRoute.get('/', (req: express.Request, res: express.Response): void => {
   res.send('Image Processing API');
 });
 
